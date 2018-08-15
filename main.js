@@ -1,20 +1,34 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow} = require('electron')
+var Positioner = require('electron-positioner')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
-function createWindow () {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
 
+function createWindow () {
+
+  // Create the browser window.
+  mainWindow = new BrowserWindow({
+      width: 180,
+      height: 130,
+      alwaysOnTop: true,
+      x:0,
+      y:0,
+      resizable: false,
+      frame: false,
+      useContentSize: true,
+  });
+
+  mainWindow.setAlwaysOnTop(true);
+  mainWindow.setMenu(null)
+  mainWindow.setHasShadow(false)
+var positioner = new Positioner(mainWindow)
+positioner.move('bottomRight')
+  // mainWindow.setIgnoreMouseEvents(true);
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
-
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
-
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
